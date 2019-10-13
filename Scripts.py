@@ -932,277 +932,9 @@ if len(occ) > 0:
 else:
     print(-1)
 
-#Closures and Decorators
-
-#Ex.60 - Standardize Mobile Number Using Decorators
-
-def wrapper(f):
-    def fun(l):
-        for i in range(len(l)):
-            l[i] = '+91 ' + l[i][-10:-5] + ' ' + l[i][-5:]
-        return f(l)
-    return fun
-
-@wrapper
-def sort_phone(l):
-    print(*sorted(l), sep='\n')
-
-if __name__ == '__main__':
-    l = [input() for _ in range(int(input()))]
-    sort_phone(l) 
-
-#Ex.61 - Decorators 2
-
-def person_lister(f):
-    def inner(people):
-        people = sorted(people, key = lambda x: int(x[2]))
-        out = []
-        for p in people:
-            out.append(f(p))
-        return(out)
-    return inner
-
-
-@person_lister
-def name_format(person):
-    return ("Mr. " if person[3] == "M" else "Ms. ") + person[0] + " " + person[1]
-
-if __name__ == '__main__':
-    people = [input().split() for i in range(int(input()))]
-    print(*name_format(people), 
-
-#Numpy
-
-#Ex.62 - Arrays
-
-import numpy
-
-def arrays(arr):
-    arr.reverse()
-    a = numpy.array(arr, float)
-    return a
-
-arr = input().strip().split(' ')
-result = arrays(arr)
-print(result)
-
-#Ex.63 - Shape and Reshape
-
-import numpy
-
-arr = list(map(int, input().split()))
-print(numpy.reshape(arr, (3,3)))
-
-#Ex.64 - Transpose and Flatten
-
-import numpy
-
-nm = list(map(int, input().split()))
-n = nm[0]
-m = nm[1]
-a = []
-for _ in range(n):
-    a.append(list(map(int, input().split())))
-arr = numpy.array(a)
-print(numpy.transpose(arr))
-print(arr.flatten())
-
-#Ex.65 - Concatenate
-
-import numpy
-
-nmp = list(map(int, input().split()))
-n = nmp[0]
-m = nmp[1]
-p = nmp[2]
-l = []
-k = []
-for i in range(n):
-    l.append(list(map(int, input().split())))
-for i in range(m):
-    k.append(list(map(int, input().split())))
-print(numpy.concatenate((numpy.array(l), numpy.array(k)),axis = 0))
-
-#Ex.66 - Zeros and Ones
-
-import numpy
-
-t = tuple(map(int, input().split()))
-print(numpy.zeros(t, dtype = numpy.int))
-print(numpy.ones(t, dtype = numpy.int))
-
-#Ex.67 - Eye and Identity
-
-import numpy
-numpy.set_printoptions(legacy='1.13')
-
-nm = list(map(int, input().split()))
-n = nm[0]
-m = nm[1]
-a = numpy.eye(n, m, k = 0)
-print(a)
-
-#Ex.68 - Array Mathematics
-
-import numpy
-
-n, m = map(int, input().split())
-a = []
-b = []
-for _ in range(n):
-    a.append(list(map(int,input().split())))
-for _ in range(n):
-    b.append(list(map(int,input().split())))
-A = numpy.array(a)
-B = numpy.array(b)
-print(numpy.add(A, B))
-print(numpy.subtract(A, B))
-print(numpy.multiply(A, B))
-print(A//B)
-print(A%B)
-print(numpy.power(A,B))
-
-Ex.69 - Floor, Ceil, Rint
-
-import numpy
-numpy.set_printoptions(legacy='1.13')
-
-a = list(map(float, input().split()))
-A = numpy.array(a)
-print(numpy.floor(A))
-print(numpy.ceil(A))
-print(numpy.rint(A))
-
-#Ex.70 - Sum and Prod
-
-import numpy
-
-n,m = map(int, input().split())
-l = []
-for i in range(n):
-    l.append(list(map(int, input().split())))
-A = numpy.array(l)
-print(numpy.prod(numpy.sum(A, axis = 0)))
-
-#Ex.71 - Min and Max
-
-import numpy
-
-n, m = map(int, input().split())
-l = []
-for i in range(n):
-    l.append(list(map(int, input().split())))
-A = numpy.array(l)
-print(numpy.max(numpy.min(A, axis = 1)))
-
-#Ex.72 - Mean, Var, and Std
-
-import numpy as np
-np.set_printoptions(legacy='1.13')
-
-n, m = map(int, input().split())
-a = []
-for _ in range(n):
-    a.append(list(map(int, input().split())))
-arr = np.array(a)
-print(np.mean(arr, axis = 1))
-print(np.var(arr, axis = 0))
-print(np.std(arr))
-
-#Ex.73 - Dot and Cross
-
-import numpy as np
-
-n = int(input())
-a = []
-b = []
-for _ in range(n):
-    a.append(list(map(int, input().split())))
-for _ in range(n):
-    b.append(list(map(int, input().split())))
-A = np.array(a)
-B = np.array(b)
-print(np.dot(A,B))
-
-#Ex.74 - Inner and Outer
-
-import numpy as np
-
-A = np.array(list(map(int, input().split())))
-B = np.array(list(map(int, input().split())))
-
-print(np.inner(A,B))
-print(np.outer(A,B))
-
-#Ex.75 - Polynomials
-
-import numpy
-coeff = list(map(float, input().split()))
-x = float(input())
-print(numpy.polyval(coeff, x))
-
-#Ex.76 - Linear Algebra
-
-import numpy
-
-N = int(input())
-a = []
-for i in range(N):
-    a.append(list(map(float, input().split())))
-print(round(numpy.linalg.det(a), 2))
-
-#XML
-
-#Ex.77 - XML 1 - Find the Score
-
-import sys
-import xml.etree.ElementTree as etree
-
-def get_attr_number(node):
-    ch = list(node)
-    l = len(node.attrib)
-    for i in ch:
-        l +=  get_attr_number(i)
-
-    return l 
-
-if __name__ == '__main__':
-    sys.stdin.readline()
-    xml = sys.stdin.read()
-    tree = etree.ElementTree(etree.fromstring(xml))
-    root = tree.getroot()
-    print(get_attr_number(root))
-
-#Ex.78 - XML2 - Find the Maximum Depth
-
-import xml.etree.ElementTree as etree
-
-maxdepth = 0
-def depth(elem, level):
-    global maxdepth
-    
-    level += 1
-
-    if level > maxdepth:
-        maxdepth = level
-    
-    for ch in elem:
-        depth(ch, level)
-
-    return(maxdepth)
-    
-if __name__ == '__main__':
-    n = int(input())
-    xml = ""
-    for i in range(n):
-        xml =  xml + input() + "\n"
-    tree = etree.ElementTree(etree.fromstring(xml))
-    depth(tree.getroot(), -1)
-    print(maxdepth)
-
 ##Regex
 
-#Ex.79 - Re.start() & Re.end()
+#Ex.60 - Re.start() & Re.end()
 
 import re
 
@@ -1215,7 +947,7 @@ else:
     print(*[(m.start(), m.start()+len(k)-1) for m in re.finditer(regp, s)], sep = '\n')
     
 
-#Ex.80 - Regex Substitution
+#Ex.61 - Regex Substitution
 
 import re
 
@@ -1227,13 +959,13 @@ for i in range(N):
 sn = re.sub(r"( && )", "", str(re.sub(r"(?= && )", ' and ', s)))
 print(re.sub(r"( \|\| )", "", str(re.sub(r"(?= \|\| )", ' or ', sn))))
 
-#Ex.81 - Validating Roman Numerals
+#Ex.62 - Validating Roman Numerals
 
 regex_pattern = r"M{,3}(C(M|D)|D?C{,3})(X(C|L)|L?X{,3})(I(V|X)|V?I{,3})$"	# Do not delete 'r'.
 import re
 print(str(bool(re.match(regex_pattern, input()))))
 
-#Ex.82 - Validating phone numbers
+#Ex.63 - Validating phone numbers
 
 import re
 regnum = r'^[789]\d{9}$'
@@ -1245,7 +977,7 @@ for i in St:
     else:
         print('NO')
 
-#Ex.83 - Validating and Parsing email addresses
+#Ex.64 - Validating and Parsing email addresses
 
 import re
 import email.utils
@@ -1256,7 +988,7 @@ for i in ems:
     if re.match(pat, email.utils.parseaddr(i)[1]):
         print(i)
 
-#Ex.84 - Hex Color Code
+#Ex.65 - Hex Color Code
 
 import re
 
@@ -1268,7 +1000,7 @@ for s in S:
     if len(l)>1 and len(re.findall(colpat, s)) and '#' not in l[0]:
         print(*re.findall(colpat, s), sep = '\n')
 
-#Ex.85 - Validating UID
+#Ex.66 - Validating UID
 
 import re
 
@@ -1282,7 +1014,7 @@ for _ in range(n):
     else:
         print('Invalid')
 
-#Ex.86 - Validating Credit Card Numbers
+#Ex.67 - Validating Credit Card Numbers
 
 import re
 
@@ -1295,7 +1027,7 @@ for i in range(n):
     else:
         print('Invalid')
 
-#Ex.87 - Validating Postal Codes
+#Ex.68 - Validating Postal Codes
 
 regex_integer_in_range = r"^[1-9]\d{5}$"	# Do not delete 'r'.
 regex_alternating_repetitive_digit_pair = r"(?=((\d)\d\2))"	# Do not delete 'r'.
@@ -1307,7 +1039,7 @@ P = input()
 print (bool(re.match(regex_integer_in_range, P)) 
 and len(re.findall(regex_alternating_repetitive_digit_pair, P)) < 2)
 
-#Ex.88 - Matrix Script
+#Ex.69 - Matrix Script
 
 import math
 import os
@@ -1336,7 +1068,7 @@ for i in range(m):
 pat = r'(?<=\w)\W+(?=\w)'
 print(re.sub(pat, ' ', decode))
 
-#Ex.89 - HTML Parser - Part 1
+#Ex.70 - HTML Parser - Part 1
 
 from html.parser import HTMLParser 
 
@@ -1360,7 +1092,7 @@ for _ in range(N):
     s = input()
     parser.feed(s)
 
-#Ex.90 - HTML Parser - Part 2
+#Ex.71 - HTML Parser - Part 2
 
 from html.parser import HTMLParser
 
@@ -1385,7 +1117,7 @@ parser = MyHTMLParser()
 parser.feed(html)
 parser.close()
 
-#Ex.91 - Detect HTML Tags, Attributes, and Attribute Values
+#Ex.72 - Detect HTML Tags, Attributes, and Attribute Values
 
 from html.parser import HTMLParser
 
@@ -1401,6 +1133,273 @@ for _ in range(N):
     s = input()
     parser.feed(s) 
 
+#XML
+
+#Ex.73 - XML 1 - Find the Score
+
+import sys
+import xml.etree.ElementTree as etree
+
+def get_attr_number(node):
+    ch = list(node)
+    l = len(node.attrib)
+    for i in ch:
+        l +=  get_attr_number(i)
+
+    return l 
+
+if __name__ == '__main__':
+    sys.stdin.readline()
+    xml = sys.stdin.read()
+    tree = etree.ElementTree(etree.fromstring(xml))
+    root = tree.getroot()
+    print(get_attr_number(root))
+
+#Ex.74 - XML2 - Find the Maximum Depth
+
+import xml.etree.ElementTree as etree
+
+maxdepth = 0
+def depth(elem, level):
+    global maxdepth
+    
+    level += 1
+
+    if level > maxdepth:
+        maxdepth = level
+    
+    for ch in elem:
+        depth(ch, level)
+
+    return(maxdepth)
+    
+if __name__ == '__main__':
+    n = int(input())
+    xml = ""
+    for i in range(n):
+        xml =  xml + input() + "\n"
+    tree = etree.ElementTree(etree.fromstring(xml))
+    depth(tree.getroot(), -1)
+    print(maxdepth)
+
+#Closures and Decorators
+
+#Ex.75 - Standardize Mobile Number Using Decorators
+
+def wrapper(f):
+    def fun(l):
+        for i in range(len(l)):
+            l[i] = '+91 ' + l[i][-10:-5] + ' ' + l[i][-5:]
+        return f(l)
+    return fun
+
+@wrapper
+def sort_phone(l):
+    print(*sorted(l), sep='\n')
+
+if __name__ == '__main__':
+    l = [input() for _ in range(int(input()))]
+    sort_phone(l) 
+
+#Ex.76 - Decorators 2
+
+def person_lister(f):
+    def inner(people):
+        people = sorted(people, key = lambda x: int(x[2]))
+        out = []
+        for p in people:
+            out.append(f(p))
+        return(out)
+    return inner
+
+
+@person_lister
+def name_format(person):
+    return ("Mr. " if person[3] == "M" else "Ms. ") + person[0] + " " + person[1]
+
+if __name__ == '__main__':
+    people = [input().split() for i in range(int(input()))]
+    print(*name_format(people), 
+
+#Numpy
+
+#Ex.77 - Arrays
+
+import numpy
+
+def arrays(arr):
+    arr.reverse()
+    a = numpy.array(arr, float)
+    return a
+
+arr = input().strip().split(' ')
+result = arrays(arr)
+print(result)
+
+#Ex.78 - Shape and Reshape
+
+import numpy
+
+arr = list(map(int, input().split()))
+print(numpy.reshape(arr, (3,3)))
+
+#Ex.79 - Transpose and Flatten
+
+import numpy
+
+nm = list(map(int, input().split()))
+n = nm[0]
+m = nm[1]
+a = []
+for _ in range(n):
+    a.append(list(map(int, input().split())))
+arr = numpy.array(a)
+print(numpy.transpose(arr))
+print(arr.flatten())
+
+#Ex.80 - Concatenate
+
+import numpy
+
+nmp = list(map(int, input().split()))
+n = nmp[0]
+m = nmp[1]
+p = nmp[2]
+l = []
+k = []
+for i in range(n):
+    l.append(list(map(int, input().split())))
+for i in range(m):
+    k.append(list(map(int, input().split())))
+print(numpy.concatenate((numpy.array(l), numpy.array(k)),axis = 0))
+
+#Ex.81 - Zeros and Ones
+
+import numpy
+
+t = tuple(map(int, input().split()))
+print(numpy.zeros(t, dtype = numpy.int))
+print(numpy.ones(t, dtype = numpy.int))
+
+#Ex.82 - Eye and Identity
+
+import numpy
+numpy.set_printoptions(legacy='1.13')
+
+nm = list(map(int, input().split()))
+n = nm[0]
+m = nm[1]
+a = numpy.eye(n, m, k = 0)
+print(a)
+
+#Ex.83 - Array Mathematics
+
+import numpy
+
+n, m = map(int, input().split())
+a = []
+b = []
+for _ in range(n):
+    a.append(list(map(int,input().split())))
+for _ in range(n):
+    b.append(list(map(int,input().split())))
+A = numpy.array(a)
+B = numpy.array(b)
+print(numpy.add(A, B))
+print(numpy.subtract(A, B))
+print(numpy.multiply(A, B))
+print(A//B)
+print(A%B)
+print(numpy.power(A,B))
+
+#Ex.84 - Floor, Ceil, Rint
+
+import numpy
+numpy.set_printoptions(legacy='1.13')
+
+a = list(map(float, input().split()))
+A = numpy.array(a)
+print(numpy.floor(A))
+print(numpy.ceil(A))
+print(numpy.rint(A))
+
+#Ex.85 - Sum and Prod
+
+import numpy
+
+n,m = map(int, input().split())
+l = []
+for i in range(n):
+    l.append(list(map(int, input().split())))
+A = numpy.array(l)
+print(numpy.prod(numpy.sum(A, axis = 0)))
+
+#Ex.86 - Min and Max
+
+import numpy
+
+n, m = map(int, input().split())
+l = []
+for i in range(n):
+    l.append(list(map(int, input().split())))
+A = numpy.array(l)
+print(numpy.max(numpy.min(A, axis = 1)))
+
+#Ex.87 - Mean, Var, and Std
+
+import numpy as np
+np.set_printoptions(legacy='1.13')
+
+n, m = map(int, input().split())
+a = []
+for _ in range(n):
+    a.append(list(map(int, input().split())))
+arr = np.array(a)
+print(np.mean(arr, axis = 1))
+print(np.var(arr, axis = 0))
+print(np.std(arr))
+
+#Ex.88 - Dot and Cross
+
+import numpy as np
+
+n = int(input())
+a = []
+b = []
+for _ in range(n):
+    a.append(list(map(int, input().split())))
+for _ in range(n):
+    b.append(list(map(int, input().split())))
+A = np.array(a)
+B = np.array(b)
+print(np.dot(A,B))
+
+#Ex.89 - Inner and Outer
+
+import numpy as np
+
+A = np.array(list(map(int, input().split())))
+B = np.array(list(map(int, input().split())))
+
+print(np.inner(A,B))
+print(np.outer(A,B))
+
+#Ex.90 - Polynomials
+
+import numpy
+coeff = list(map(float, input().split()))
+x = float(input())
+print(numpy.polyval(coeff, x))
+
+#Ex.91 - Linear Algebra
+
+import numpy
+
+N = int(input())
+a = []
+for i in range(N):
+    a.append(list(map(float, input().split())))
+print(round(numpy.linalg.det(a), 2))
 
 ##Problem 2 - Challenges
 
